@@ -67,15 +67,6 @@ let tileMapSane = {
     ]
 };
 
-function myCreateFunction() {
-    var table = document.getElementById("gameMapTable");
-    var row = table.insertRow(0);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = "NEW CELL1";
-    cell2.innerHTML = "NEW CELL2";
-  }
-
 function buildMap() {    
 // let imgCounter = 0;
 // let wallCounter = 0;
@@ -87,18 +78,21 @@ const idPrefix = {
     'W': 'Wall',
     'B': 'Box',
     'P': 'Player',
+    'G': 'Goal',
   };
   const counter = {
     ' ': 0,
     'W': 0,
     'B': 0,
     'P': 0,
+    'G': 0,
   };
   const images = {
     ' ': '/images/tile1.png',
     'W': '/images/wall.png',
     'B': '/images/box.png',
     'P': '/images/character.png',
+    'G': '/images/goal.png',
   };
 
 const table = document.getElementById("gameMapTable");
