@@ -168,15 +168,15 @@ for (const row of tileMapSane.mapGrid) {
     }
 }
 
-function buildMap () {
+// function buildMap () {
 
     
-    for (const row of tileMapSane.mapGrid) {
-        for (const col of row) {
+//     for (const row of tileMapSane.mapGrid) {
+//         for (const col of row) {
             
-        }
-    }
-  }
+//         }
+//     }
+//   }
 
 
 
