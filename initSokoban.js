@@ -44,7 +44,7 @@ let tileMapUpdated = {
   ]
 };
 
-function buildMap() {    
+function buildMap() {
     const idPrefix = {
         ' ': 'emptyImg',
         'W': 'Wall',
@@ -67,17 +67,23 @@ function buildMap() {
         'G': '/images/goal.png',
       };
 
-    const table = document.createElement("table");
-    table.id = "sokobanBoard";
-    document.body.appendChild(table);
+    if (!document.body == null){
+      const temp = document.getElementById("body");
+      const temp2 = document.getElementById("sokobanBoard");
+      temp.removeChild(temp2);
+    }
+
+    const gameBoard = document.createElement("table");
+    gameBoard.id = "sokobanBoard";
+    document.body.appendChild(gameBoard);
     
     for (const row of tileMapUpdated.mapGrid) {
         const trow = document.createElement("tr");
-        table.appendChild(trow);
+        gameBoard.appendChild(trow);
     
         for (const col of row) {
             const tcol = document.createElement("td");
-            table.appendChild(tcol);
+            gameBoard.appendChild(tcol);
     
             const elImage = document.createElement("img");
             elImage.id = `${idPrefix[col]}${counter[col]++}`;
@@ -89,65 +95,114 @@ function buildMap() {
     }
 };
     
-function getPosition(){
+function getPositionOfPlayer(){
   for (let row = 0; row < tileMapUpdated.mapGrid.length; row++){
     for (let col = 0; col < tileMapUpdated.mapGrid[row].length; col++){
       if (tileMapUpdated.mapGrid[row][col] === 'P'){
-        return [col, row];
+        return [row, col];
       }
     }
   }
-}
+};
 
 document.onkeydown = (e) => {
+  let pos = getPositionOfPlayer();
+  let nextPos;
+  let nextnextPos;
+
   e = e || window.event;
   if (e.keyCode === 38) {
     console.log('up arrow pressed')
-    let pos = getPosition();
-    let nextPos = tileMapUpdated.mapGrid[pos[0] - 1][pos[1]];
+    pos = getPositionOfPlayer();
+    nextPos = tileMapUpdated.mapGrid[pos[0] - 1][pos[1]];
 
     if (nextPos === 'W'){
       console.log(false);
       return false;
-    } else {
+    } else if (nextPos === 'B') {
+      nextnextPos = tileMapUpdated.mapGrid[pos[0] - 2][pos[1]];
+      if (nextnextPos === 'W' || nextnextPos === 'B') {
+        console.log("Box would move into a wall.");
+        return false;
+      } else {
+        tileMapUpdated.mapGrid[pos[0] - 2][pos[1]] = 'B';
+        tileMapUpdated.mapGrid[pos[0] - 1][pos[1]] = 'P';
+        tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      }
+    } 
+    else {
       tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
       tileMapUpdated.mapGrid[pos[0] - 1][pos[1]] = 'P';
     }
   } else if (e.keyCode === 40) {
     console.log('down arrow pressed')
-    let pos = getPosition();
-    let nextPos = tileMapUpdated.mapGrid[pos[0] + 1][pos[1]];
+    pos = getPositionOfPlayer();
+    nextPos = tileMapUpdated.mapGrid[pos[0] + 1][pos[1]];
 
     if (nextPos === 'W'){
       console.log(false);
       return false;
-    } else {
+    } else if (nextPos === 'B') {
+      nextnextPos = tileMapUpdated.mapGrid[pos[0] + 2][pos[1]];
+      if (nextnextPos === 'W' || nextnextPos === 'B') {
+        console.log("Box would move into a wall.");
+        return false;
+      } else {
+        tileMapUpdated.mapGrid[pos[0] + 2][pos[1]] = 'B';
+        tileMapUpdated.mapGrid[pos[0] + 1][pos[1]] = 'P';
+        tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      }
+    }
+    else {
       tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
       tileMapUpdated.mapGrid[pos[0] + 1][pos[1]] = 'P';
     }
   } else if (e.keyCode === 37) {
     console.log('left arrow pressed')
-    let pos = getPosition();
-    let nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] - 1];
+    pos = getPositionOfPlayer();
+    nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] - 1];
 
     if (nextPos === 'W'){
       console.log(false);
       return false;
-    } else {
+    } else if (nextPos === 'B') {
+      nextnextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] - 2];
+      if (nextnextPos === 'W' || nextnextPos === 'B') {
+        console.log("Box cannot move further.");
+        return false;
+      } else {
+        tileMapUpdated.mapGrid[pos[0]][pos[1] - 2] = 'B';
+        tileMapUpdated.mapGrid[pos[0]][pos[1] - 1] = 'P';
+        tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      }
+    }
+    else {
       tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
       tileMapUpdated.mapGrid[pos[0]][pos[1] - 1] = 'P';
     }
   } else if (e.keyCode === 39) {
     console.log('right arrow pressed')
-    let pos = getPosition();
-    let nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] + 1];
-    
+    pos = getPositionOfPlayer();
+    nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] + 1];
+
     if (nextPos === 'W'){
       console.log(false);
       return false;
-    } else {
+    } else if (nextPos === 'B') {
+      nextnextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] + 2];
+      if (nextnextPos === 'W' || nextnextPos === 'B') {
+        console.log("Box would move into a wall.");
+        return false;
+      } else {
+        tileMapUpdated.mapGrid[pos[0]][pos[1] + 2] = 'B';
+        tileMapUpdated.mapGrid[pos[0]][pos[1] + 1] = 'P';
+        tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      }
+    }
+    else {
       tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
       tileMapUpdated.mapGrid[pos[0]][pos[1] + 1] = 'P';
     }
   }
-}
+  buildMap();
+};
