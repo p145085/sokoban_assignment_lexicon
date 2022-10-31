@@ -104,23 +104,50 @@ document.onkeydown = (e) => {
   if (e.keyCode === 38) {
     console.log('up arrow pressed')
     let pos = getPosition();
-    tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
-    tileMapUpdated.mapGrid[pos[0] - 1][pos[1]] = 'P';
+    let nextPos = tileMapUpdated.mapGrid[pos[0] - 1][pos[1]];
+
+    if (nextPos === 'W'){
+      console.log(false);
+      return false;
+    } else {
+      tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      tileMapUpdated.mapGrid[pos[0] - 1][pos[1]] = 'P';
+    }
   } else if (e.keyCode === 40) {
     console.log('down arrow pressed')
     let pos = getPosition();
-    tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
-    tileMapUpdated.mapGrid[pos[0] + 1][pos[1]] = 'P';
+    let nextPos = tileMapUpdated.mapGrid[pos[0] + 1][pos[1]];
+
+    if (nextPos === 'W'){
+      console.log(false);
+      return false;
+    } else {
+      tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      tileMapUpdated.mapGrid[pos[0] + 1][pos[1]] = 'P';
+    }
   } else if (e.keyCode === 37) {
     console.log('left arrow pressed')
     let pos = getPosition();
-    tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
-    tileMapUpdated.mapGrid[pos[0]][pos[1] - 1] = 'P';
+    let nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] - 1];
+
+    if (nextPos === 'W'){
+      console.log(false);
+      return false;
+    } else {
+      tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      tileMapUpdated.mapGrid[pos[0]][pos[1] - 1] = 'P';
+    }
   } else if (e.keyCode === 39) {
     console.log('right arrow pressed')
     let pos = getPosition();
-    tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
-    tileMapUpdated.mapGrid[pos[0]][pos[1] + 1] = 'P';
+    let nextPos = tileMapUpdated.mapGrid[pos[0]][pos[1] + 1];
+    
+    if (nextPos === 'W'){
+      console.log(false);
+      return false;
+    } else {
+      tileMapUpdated.mapGrid[pos[0]][pos[1]] = ' ';
+      tileMapUpdated.mapGrid[pos[0]][pos[1] + 1] = 'P';
+    }
   }
-  // console.log(tileMapUpdated.mapGrid[pos[0]][pos[1]]);
 }
